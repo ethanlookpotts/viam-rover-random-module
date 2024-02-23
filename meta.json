@@ -9,5 +9,10 @@
       "model": "ethanlook:rover:random"
     }
   ],
-  "entrypoint": "./run.sh"
+  "entrypoint": "dist/main",
+  "build": {
+    "build": "sh build.sh",
+    "path": "dist/archive.tar.gz",
+    "arch" : ["linux/amd64", "linux/arm64", "darwin/arm64"]
+  }
 }
