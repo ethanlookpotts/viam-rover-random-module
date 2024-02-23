@@ -1,0 +1,13 @@
+{
+  "module_id": "ethanlook:randomrover",
+  "visibility": "public",
+  "url": "https://github.com/ethanlook/viam-rover-random-module",
+  "description": "A module that provides a custom service to make your Viam rover drive with random movements.",
+  "models": [
+    {
+      "api": "rdk:service:generic",
+      "model": "ethanlook:rover:random"
+    }
+  ],
+  "entrypoint": "./run.sh"
+}
