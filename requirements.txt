@@ -1,3 +1,1 @@
-pyinstaller==5.13.0
-google-api-python-client
 viam-sdk
