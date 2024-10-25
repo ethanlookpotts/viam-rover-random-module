@@ -2,7 +2,7 @@
   "$schema": "https://dl.viam.dev/module.schema.json",
   "module_id": "ethanlook:randomrover",
   "visibility": "private",
-  "url": "",
+  "url": "https://github.com/ethanlookpotts/viam-rover-random-module",
   "description": "Modular generic service: randomrover",
   "models": [
     {
