@@ -1,0 +1,11 @@
+{
+  "module_name": "randomrover",
+  "namespace": "ethanlook",
+  "language": "python",
+  "resource_type": "service",
+  "resource_subtype": "generic",
+  "model_name": "randomrover",
+  "enable_cloud_build": true,
+  "generator_version": "0.1.0",
+  "generated_on": "2024-10-25T20:26:39.129205Z"
+}
