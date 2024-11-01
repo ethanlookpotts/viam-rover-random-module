@@ -90,6 +90,12 @@ class Randomrover(Generic, EasyResource):
         if "velocity_mm_s" in config.attributes.fields:
             self.velocity_mm_s = int(config.attributes.fields["velocity_mm_s"].number_value)
 
+        if "angle_deg" in config.attributes.fields:
+            self.angle_deg = int(config.attributes.fields["angle_deg"].number_value)
+
+        if "velocity_deg_s" in config.attributes.fields:
+            self.velocity_deg_s = int(config.attributes.fields["velocity_deg_s"].number_value)
+
         return super().reconfigure(config, dependencies)
 
     def thread_run(self):
