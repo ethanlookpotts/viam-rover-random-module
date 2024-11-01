@@ -11,12 +11,9 @@ from viam.resource.types import Model, ModelFamily
 from viam.services.generic import Generic
 from viam.components.base import Base
 from threading import Thread, Event
-from viam import logging
 from viam.utils import ValueTypes
 from random import random
 
-
-LOGGER = logging.getLogger(__name__)
 
 class Randomrover(Generic, EasyResource):
     MODEL: ClassVar[Model] = Model(
@@ -73,6 +70,8 @@ class Randomrover(Generic, EasyResource):
             config (ComponentConfig): The new configuration
             dependencies (Mapping[ResourceName, ResourceBase]): Any dependencies (both implicit and explicit)
         """
+        self.stop()
+
         if len(dependencies.values()) == 0:
             raise Exception("A base is a required dependency. Make sure a base is added as a dependency and is of the Base type.")
 
@@ -105,17 +104,23 @@ class Randomrover(Generic, EasyResource):
 
     def start(self):
         if self.thread is None or not self.thread.is_alive():
-            LOGGER.info("start")
+            print("start")
             self.event.clear()
             self.thread = Thread(target=self.thread_run)
             self.thread.start()
+            print("started")
+        else:
+            print("no start; already started")
 
     def stop(self):
         if self.thread is not None and self.event is not None:
-            LOGGER.info("stop")
+            print("stop")
             self.event.set()
             self.thread.join()
             self.thread = None
+            print("stopped")
+        else:
+            print("no stop; not running")
 
     async def looper(self):
         while not self.event.is_set():
@@ -124,18 +129,21 @@ class Randomrover(Generic, EasyResource):
 
     async def do_loop(self):
         distance_mm = int((2 * random() - 1) * self.distance_mm)
-        LOGGER.info("moving forward")
+        print("moving forward")
         await self.base.move_straight(distance_mm, self.velocity_mm_s)
+        print("sleeping")
         await asyncio.sleep(self.sleep_s)
-        LOGGER.info("moving backward")
+        print("moving backward")
         await self.base.move_straight(-distance_mm, self.velocity_mm_s)
+        print("sleeping")
         await asyncio.sleep(self.sleep_s)
-        LOGGER.info("spinning")
+        print("spinning")
         await self.base.spin(int((2 * random() - 1) * self.angle_deg), self.velocity_deg_s)
+        print("sleeping")
         await asyncio.sleep(self.sleep_s)
 
     async def do_command(self, command: Mapping[str, ValueTypes], *, timeout: Optional[float] = None, **kwargs) -> Mapping[str, ValueTypes]:
-        LOGGER.info("do_command called")
+        print("do_command called")
         result = {key: False for key in command.keys()}
         for name, _ in command.items():
             if name == 'start':
