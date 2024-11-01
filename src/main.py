@@ -105,12 +105,14 @@ class Randomrover(Generic, EasyResource):
 
     def start(self):
         if self.thread is None or not self.thread.is_alive():
+            LOGGER.info("start")
             self.event.clear()
             self.thread = Thread(target=self.thread_run)
             self.thread.start()
 
     def stop(self):
         if self.thread is not None and self.event is not None:
+            LOGGER.info("stop")
             self.event.set()
             self.thread.join()
             self.thread = None
